@@ -18,6 +18,7 @@ private fun Process.read(): String {
         buf.readStream(errorStream)
         buf.readStream(inputStream)
         waitFor()
+        buf.appendln("")
     }.toString()
 }
 
