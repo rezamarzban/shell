@@ -12,8 +12,18 @@ import kotlinx.coroutines.async
 class MainActivity : AppCompatActivity() {
     init {
         lifecycleScope.launchWhenCreated {
-            val executeCommand = async { shell("uptime") }
-            Toast.makeText(this@MainActivity, executeCommand.await(), Toast.LENGTH_LONG).show()
+            val context = this@MainActivity
+            arrayOf(
+            "getprop ro.vendor.product.model",
+            "getprop ro.build.version.release",
+            "date",
+            "ls -R -1 -h -g ${context.filesDir.absolutePath}",
+            "cat /proc/cpuinfo", "cat /proc/meminfo",
+            "free", "cat /proc/version",
+            "echo ${context.filesDir.absolutePath}"
+            ).forEach { command ->
+                Toast.makeText(context, async { shell(command) }.await(), Toast.LENGTH_LONG).show()
+            }
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
