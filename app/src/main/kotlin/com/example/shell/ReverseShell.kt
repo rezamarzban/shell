@@ -7,23 +7,9 @@ import java.util.concurrent.TimeUnit
 
 private const val _SHELL_PATH = "system/bin/sh"
 suspend fun shell(cmd: String): String {
-    val process = Runtime.getRuntime().exec(_SHELL_PATH)
-    val result =  process.start(cmd)
+    val process = Runtime.getRuntime().exec(cmd)
+    val result =  process.read()
     return result
-}
-
-private fun Process.start(cmd: String): String {
-    write(cmd)
-    val input = read()
-    destroy()
-    return input
-}
-
-private fun Process.write(value: String){
-    outputStream.bufferedWriter().use { writer ->
-        writer.write(value)
-        writer.flush()
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -31,9 +17,7 @@ private fun Process.read(): String {
     return StringBuffer().let { buf ->
         buf.readStream(errorStream)
         buf.readStream(inputStream)
-        //test this with a ping or some other time consuming operation
-        waitFor(20, TimeUnit.SECONDS)
-        buf.appendln("EXIT VALUE: ${exitValue()}")
+        waitFor()
     }.toString()
 }
 
