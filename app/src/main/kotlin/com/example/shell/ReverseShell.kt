@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
-private const val _SHELL_PATH = "system/bin/sh"
 suspend fun shell(cmd: String): String {
     val process = Runtime.getRuntime().exec(cmd)
     val result =  process.read()
