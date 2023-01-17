@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     init {
         lifecycleScope.launchWhenCreated {
             val context = this@MainActivity
+            copyAssets(context)
             arrayOf(
             "getprop ro.vendor.product.model",
             "getprop ro.build.version.release",
