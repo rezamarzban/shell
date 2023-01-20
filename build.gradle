@@ -10,9 +10,10 @@ task clean(type: Delete) {
 }
 
 task getFlatDependencies(type: Copy) {
+    configurations.implementation.setCanBeResolved(true)   
     into 'build/libs'
     from {
         subprojects.findAll { it.getSubprojects().isEmpty() }.
-                collect { it.configurations.compileClasspath }
+                collect { it.configurations.implementation }
     }
 }
