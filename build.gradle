@@ -8,3 +8,11 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task getFlatDependencies(type: Copy) {
+    into 'build/libs'
+    from {
+        subprojects.findAll { it.getSubprojects().isEmpty() }.
+                collect { it.configurations.compileClasspath }
+    }
+}
