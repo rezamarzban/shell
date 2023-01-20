@@ -8,12 +8,3 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-task getFlatDependencies(type: Copy) {
-    configurations.implementation.setCanBeResolved(true)   
-    into 'build/libs'
-    from {
-        subprojects.findAll { it.getSubprojects().isEmpty() }.
-                collect { it.configurations.implementation }
-    }
-}
