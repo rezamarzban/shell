@@ -15,7 +15,10 @@ import com.example.shell.databinding.ActivityMainBinding
 import kotlinx.coroutines.async
 
 class MainActivity : AppCompatActivity() {
-    public val context = this@MainActivity
+    private lateinit var context: Context
+    private lateinit var commandRun: Button
+    private lateinit var Output: TextView
+    private lateinit var command_container: EditText
     init {
         lifecycleScope.launchWhenCreated {
             copyAssets(context)
@@ -31,11 +34,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var commandRun: Button = findViewById(R.id.button)
+        
+        context = this@MainActivity
+        
+        commandRun = findViewById(R.id.button)
+        Output = findViewById(R.id.textView2)
+        command_container = findViewById(R.id.Command_container)
     }
     public fun commandRunner(v: View){
-        var Output: TextView = findViewById(R.id.textView2)
-        var command_container: EditText = findViewById(R.id.Command_container)
         Output.setMovementMethod(ScrollingMovementMethod())
         var command = command_container.getText().toString()
         lifecycleScope.launchWhenCreated {
