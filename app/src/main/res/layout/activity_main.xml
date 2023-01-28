@@ -16,7 +16,7 @@
          android:layout_alignParentTop="true"
          android:inputType="textPersonName"
          android:ems="10"
-         android:text="Enter command here"
+         android:text="uname -a"
          android:id="@+id/Command_container" />
 
     <TextView
