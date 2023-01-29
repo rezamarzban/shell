@@ -40,9 +40,10 @@ class MainActivity : AppCompatActivity() {
         commandRun = findViewById(R.id.button)
         Output = findViewById(R.id.textView2)
         command_container = findViewById(R.id.Command_container)
+
+        Output.setMovementMethod(ScrollingMovementMethod())
     }
     public fun commandRunner(v: View){
-        Output.setMovementMethod(ScrollingMovementMethod())
         var command = command_container.getText().toString()
         lifecycleScope.launchWhenCreated {
             val result = async { shell(command) }
